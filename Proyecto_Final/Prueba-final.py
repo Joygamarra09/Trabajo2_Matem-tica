@@ -154,6 +154,10 @@ def edad_actual(anios):
     from datetime import datetime
     return [datetime.now().year - anio for anio in anios]  # Calcula la edad actual restando el año de nacimiento al año actual
 
+# Esta función verifica si el año ingresado tiene 4 dígitos.
+def longitud_anio(anio):
+    return len(str(anio)) == 4  
+
 
 
 #------------------ Programa principal ------------------
@@ -169,13 +173,14 @@ opcion = True
 
 while opcion:
     valido = False  # Bandera para verificar si los años son válidos
+
     while not valido:
         try:
             anio_1 = int(input("Ingrese su año de nacimiento: "))
             anio_2 = int(input("Ingrese el año de nacimiento de un compañero: "))
-            anio_3 = int(input("Ingrese el año de nacimiento de otro compañero: "))
-            anio_4 = int(input("Ingrese el año de nacimiento de otro compañero: "))
-            if all(longitud_anio(anio) for anio in (anio_1, anio_2, anio_3, anio_4)):
+           
+            # Validación de la longitud de los años
+            if longitud_anio(anio_1) and longitud_anio(anio_2):
                 valido = True  # Si todos se ingresan bien, cambiamos la bandera
             else:
                 print("Todos los años deben tener 4 dígitos. Por favor, intente nuevamente.\n")
@@ -183,45 +188,44 @@ while opcion:
             print("Por favor, ingrese un número válido.\n")
 
         # Validación de los años de nacimiento
+    print(" ")
+    anios = [anio_1, anio_2]
+
+    print(f"Nacidos en años impares: {anio_impar(anios)} \nNacidos en años pares: {anio_par(anios)}")
+
+    #Se clasifica cada año
+    generacion1 = clasificar_generacion(anio_1)
+    generacion2 = clasificar_generacion(anio_2)
+
+    #Se verifica si todos pertenecen a la misma generación
+    if generacion1 == generacion2: 
         print(" ")
-        anios = [anio_1, anio_2, anio_3, anio_4]
-        print(f"Nacidos en años impares: {anio_impar(anios)} \nNacidos en años pares: {anio_par(anios)}")
+        print(f"Todos pertenecen a la misma generación: {generacion1}")
+    else:
+        print(" ")
+        print(f"Las generaciones son diferentes: \nPersona 1: {generacion1}, \nPersona 2: {generacion2}")
 
-        #Se clasifica cada año
-        generacion1 = clasificar_generacion(anio_1)
-        generacion2 = clasificar_generacion(anio_2)
-        generacion3 = clasificar_generacion(anio_3)
-        generacion4 = clasificar_generacion(anio_4)
+    #Mostrar producto cartesiano de los años
+    edades = edad_actual(anios)
 
-        #Se verifica si todos pertenecen a la misma generación
-        if generacion1 == generacion2 == generacion3 == generacion4:
-            print(" ")
-            print(f"Todos pertenecen a la misma generación: {generacion1}")
+    producto_cartesiano = [(anio, edad) for anio, edad in zip(anios, edades)]
+    print(" ")
+    print("Producto cartesiano entre año de nacimiento y edad actual: :")
+    for par in producto_cartesiano:
+        print(par)
+
+    # Verificar si alguno de los años es bisiesto
+    if es_bisiesto(anios):
+        print(" ")
+        print(es_bisiesto(anios))
+        fin_programa(True)
+    else: # Si no hay años bisiestos, continuamos con el programa
+        opcion = input("Deseas salir del programa? (si/no): ").strip().lower()
+        if opcion == 'si':
+            print("-------------------------------------------------------------")
+
+            print("Saliendo del programa...")
+            opcion = False
         else:
-            print(" ")
-            print(f"Las generaciones son diferentes: \nPersona 1: {generacion1}, \nPersona 2: {generacion2}, \nPersona 3: {generacion3}, \nPersona 4: {generacion4}")
-
-        #Mostrar producto cartesiano de los años
-        edades = edad_actual(anios)
-
-        producto_cartesiano = [(anio, edad) for anio, edad in zip(anios, edades)]
-        print(" ")
-        print("Producto cartesiano entre los conjuntos año_nacimiento y edad_actual:")
-        for par in producto_cartesiano:
-            print(par)
-
-        # Verificar si alguno de los años es bisiesto
-        if es_bisiesto(anios):
-            print(" ")
-            print(es_bisiesto(anios))
-            fin_programa(True)
-        else: # Si no hay años bisiestos, continuamos con el programa
-            opcion = input("Deseas salir del programa? (si/no): ").strip().lower()
-            if opcion == 'si':
-                print("-------------------------------------------------------------")
-
-                print("Saliendo del programa...")
-                opcion = False
-            else:
-                print("Continuando con el programa...")
-                opcion = True #Se mantiene la ejecución del programa
+            print("Continuando con el programa...")
+            opcion = True #Se mantiene la ejecución del programa
