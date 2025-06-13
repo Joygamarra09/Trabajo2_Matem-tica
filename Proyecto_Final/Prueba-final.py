@@ -161,7 +161,7 @@ def longitud_anio(anio):
 
 
 #------------------ Programa principal ------------------
-# Mensahje de bienvenida
+# Mensaje de bienvenida
 print(" ")
 print("-------------------------------------------------------------")
 print("Bienvenido al programa de análisis de años de nacimiento.")
@@ -210,7 +210,7 @@ while opcion:
 
     producto_cartesiano = [(anio, edad) for anio, edad in zip(anios, edades)]
     print(" ")
-    print("Producto cartesiano entre año de nacimiento y edad actual: :")
+    print("Producto cartesiano entre año de nacimiento y edad actual: ")
     for par in producto_cartesiano:
         print(par)
 
