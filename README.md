@@ -14,4 +14,4 @@
 
 
 ## Video del Proyecto Integrador
-Link: 
+Link: https://www.youtube.com/watch?v=zPjn7nyNr-Q
